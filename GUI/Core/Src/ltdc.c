@@ -37,8 +37,8 @@ void MX_LTDC_Init(void)
   LTDC_LayerCfgTypeDef pLayerCfg = {0};
 
   /* USER CODE BEGIN LTDC_Init 1 */
-  //背光灯拉高
-	HAL_GPIO_WritePin(LCD_BL_GPIO_Port,LCD_BL_Pin,GPIO_PIN_SET);  //背光灯拉高LCD才会是使能
+  //back ground light
+	HAL_GPIO_WritePin(LCD_BL_GPIO_Port,LCD_BL_Pin,GPIO_PIN_SET);  //pull up to enable LTDC
   /* USER CODE END LTDC_Init 1 */
   hltdc.Instance = LTDC;
   hltdc.Init.HSPolarity = LTDC_HSPOLARITY_AL;
@@ -54,31 +54,31 @@ void MX_LTDC_Init(void)
   hltdc.Init.TotalWidth = 866;
   hltdc.Init.TotalHeigh = 525;
   hltdc.Init.Backcolor.Blue = 0;
-  hltdc.Init.Backcolor.Green = 0xff;
-  hltdc.Init.Backcolor.Red = 0;
+  hltdc.Init.Backcolor.Green = 0;
+  hltdc.Init.Backcolor.Red = 0xff;
   if (HAL_LTDC_Init(&hltdc) != HAL_OK)
   {
     Error_Handler();
   }
-//  pLayerCfg.WindowX0 = 0;
-//  pLayerCfg.WindowX1 = 800;
-//  pLayerCfg.WindowY0 = 0;
-//  pLayerCfg.WindowY1 = 480;
-//  pLayerCfg.PixelFormat = LTDC_PIXEL_FORMAT_RGB565;
-//  pLayerCfg.Alpha = 255;
-//  pLayerCfg.Alpha0 = 0;
-//  pLayerCfg.BlendingFactor1 = LTDC_BLENDING_FACTOR1_CA;
-//  pLayerCfg.BlendingFactor2 = LTDC_BLENDING_FACTOR2_CA;
-//  pLayerCfg.FBStartAdress = 0;
-//  pLayerCfg.ImageWidth = 800;
-//  pLayerCfg.ImageHeight = 480;
-//  pLayerCfg.Backcolor.Blue = 0xff;
-//  pLayerCfg.Backcolor.Green = 0;
-//  pLayerCfg.Backcolor.Red = 0;
-//  if (HAL_LTDC_ConfigLayer(&hltdc, &pLayerCfg, 0) != HAL_OK)
-//  {
-//    Error_Handler();
-//  }
+  pLayerCfg.WindowX0 = 0;
+  pLayerCfg.WindowX1 = 100;
+  pLayerCfg.WindowY0 = 0;
+  pLayerCfg.WindowY1 = 50;
+  pLayerCfg.PixelFormat = LTDC_PIXEL_FORMAT_RGB565;
+  pLayerCfg.Alpha = 255;
+  pLayerCfg.Alpha0 = 0;
+  pLayerCfg.BlendingFactor1 = LTDC_BLENDING_FACTOR1_CA;
+  pLayerCfg.BlendingFactor2 = LTDC_BLENDING_FACTOR2_CA;
+  pLayerCfg.FBStartAdress = 0x20000000;
+  pLayerCfg.ImageWidth = 800;
+  pLayerCfg.ImageHeight = 480;
+  pLayerCfg.Backcolor.Blue = 0;
+  pLayerCfg.Backcolor.Green = 0xff;
+  pLayerCfg.Backcolor.Red = 0;
+  if (HAL_LTDC_ConfigLayer(&hltdc, &pLayerCfg, 0) != HAL_OK)
+  {
+    Error_Handler();
+  }
   /* USER CODE BEGIN LTDC_Init 2 */
 
   /* USER CODE END LTDC_Init 2 */
