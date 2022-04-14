@@ -29,7 +29,5 @@ gui\fmc.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h
 gui\fmc.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h
 gui\fmc.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_sdram.h
 gui\fmc.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_fmc.h
-gui\fmc.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_ltdc.h
-gui\fmc.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_ltdc_ex.h
 gui\fmc.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h
 gui\fmc.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h

@@ -22,61 +22,6 @@
 #include "fmc.h"
 
 /* USER CODE BEGIN 0 */
-static void SDRAM_InitSequence(void)
-{
-	uint32_t tmpr = 0;
-	FMC_SDRAM_CommandTypeDef FMC_SDRAMCommandStructure;
-	//1.�?启SDRAM时钟
-	FMC_SDRAMCommandStructure.CommandMode = FMC_SDRAM_CMD_CLK_ENABLE;
-	FMC_SDRAMCommandStructure.CommandTarget = FMC_SDRAM_CMD_TARGET_BANK2;
-	FMC_SDRAMCommandStructure.AutoRefreshNumber = 1;
-	FMC_SDRAMCommandStructure.ModeRegisterDefinition = 0;
-	while(HAL_SDRAM_GetState(&hsdram2)!=HAL_SDRAM_STATE_RESET);
-	if(HAL_SDRAM_SendCommand(&hsdram2,&FMC_SDRAMCommandStructure,0xffff)!=HAL_OK)
-		return;
-	
-	//2.延时
-	HAL_Delay(20);
-	
-	//3.对所有的BANK预充�?
-	FMC_SDRAMCommandStructure.CommandMode = FMC_SDRAM_CMD_PALL;
-	FMC_SDRAMCommandStructure.CommandTarget = FMC_SDRAM_CMD_TARGET_BANK2;
-	FMC_SDRAMCommandStructure.AutoRefreshNumber = 1;
-	FMC_SDRAMCommandStructure.ModeRegisterDefinition = 0;
-	while(HAL_SDRAM_GetState(&hsdram2)!=HAL_SDRAM_STATE_RESET);
-	if(HAL_SDRAM_SendCommand(&hsdram2,&FMC_SDRAMCommandStructure,0xffff)!=HAL_OK)
-		return;
-	
-	//4.自动刷新
-	FMC_SDRAMCommandStructure.CommandMode = FMC_SDRAM_CMD_AUTOREFRESH_MODE;
-	FMC_SDRAMCommandStructure.CommandTarget = FMC_SDRAM_CMD_TARGET_BANK2;
-	FMC_SDRAMCommandStructure.AutoRefreshNumber = 2;
-	FMC_SDRAMCommandStructure.ModeRegisterDefinition = 0;
-	while(HAL_SDRAM_GetState(&hsdram2)!=HAL_SDRAM_STATE_RESET);
-	if(HAL_SDRAM_SendCommand(&hsdram2,&FMC_SDRAMCommandStructure,0xffff)!=HAL_OK)
-		return;
-	
-	//5.设置SDRAM寄存器配�?
-	tmpr = (uint32_t)SDRAM_MODEREG_BURST_LENGTH_8 |
- 	SDRAM_MODEREG_BURST_TYPE_SEQUENTIAL |
- 	SDRAM_MODEREG_CAS_LATENCY_2 |
- 	SDRAM_MODEREG_OPERATING_MODE_STANDARD |
- 	SDRAM_MODEREG_WRITEBURST_MODE_SINGLE;
-	FMC_SDRAMCommandStructure.CommandMode = FMC_SDRAM_CMD_AUTOREFRESH_MODE;
-	FMC_SDRAMCommandStructure.CommandTarget = FMC_SDRAM_CMD_TARGET_BANK2;
-	FMC_SDRAMCommandStructure.AutoRefreshNumber = 2;
-	FMC_SDRAMCommandStructure.ModeRegisterDefinition = 0;
-	while(HAL_SDRAM_GetState(&hsdram2)!=HAL_SDRAM_STATE_RESET);
-	if(HAL_SDRAM_SendCommand(&hsdram2,&FMC_SDRAMCommandStructure,0xffff)!=HAL_OK)
-		return;
-	
-	//设置刷新计数�?
-	FMC_SDRAM_ProgramRefreshRate(FMC_SDRAM_DEVICE,1386);
-	while(HAL_SDRAM_GetState(&hsdram2)!=HAL_SDRAM_STATE_RESET);
-	
-	
-	
-}
 /* USER CODE END 0 */
 
 SDRAM_HandleTypeDef hsdram2;
@@ -106,7 +51,7 @@ void MX_FMC_Init(void)
   hsdram2.Init.CASLatency = FMC_SDRAM_CAS_LATENCY_2;
   hsdram2.Init.WriteProtection = FMC_SDRAM_WRITE_PROTECTION_DISABLE;
   hsdram2.Init.SDClockPeriod = FMC_SDRAM_CLOCK_PERIOD_2;
-  hsdram2.Init.ReadBurst = FMC_SDRAM_RBURST_DISABLE;
+  hsdram2.Init.ReadBurst = FMC_SDRAM_RBURST_ENABLE;
   hsdram2.Init.ReadPipeDelay = FMC_SDRAM_RPIPE_DELAY_0;
   /* SdramTiming */
   SdramTiming.LoadToActiveDelay = 2;
