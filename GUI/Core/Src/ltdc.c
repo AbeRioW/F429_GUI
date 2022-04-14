@@ -1,3 +1,4 @@
+/* USER CODE BEGIN Header */
 /**
   ******************************************************************************
   * @file    ltdc.c
@@ -6,17 +7,16 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2022 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2022 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
-
+/* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "ltdc.h"
 
@@ -89,11 +89,24 @@ void HAL_LTDC_MspInit(LTDC_HandleTypeDef* ltdcHandle)
 {
 
   GPIO_InitTypeDef GPIO_InitStruct = {0};
+  RCC_PeriphCLKInitTypeDef PeriphClkInitStruct = {0};
   if(ltdcHandle->Instance==LTDC)
   {
   /* USER CODE BEGIN LTDC_MspInit 0 */
 
   /* USER CODE END LTDC_MspInit 0 */
+
+  /** Initializes the peripherals clock
+  */
+    PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_LTDC;
+    PeriphClkInitStruct.PLLSAI.PLLSAIN = 198;
+    PeriphClkInitStruct.PLLSAI.PLLSAIR = 5;
+    PeriphClkInitStruct.PLLSAIDivR = RCC_PLLSAIDIVR_2;
+    if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK)
+    {
+      Error_Handler();
+    }
+
     /* LTDC clock enable */
     __HAL_RCC_LTDC_CLK_ENABLE();
 
@@ -300,5 +313,3 @@ void HAL_LTDC_MspDeInit(LTDC_HandleTypeDef* ltdcHandle)
 /* USER CODE BEGIN 1 */
 
 /* USER CODE END 1 */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

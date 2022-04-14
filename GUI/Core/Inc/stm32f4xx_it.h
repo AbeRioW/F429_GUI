@@ -57,8 +57,6 @@ void DebugMon_Handler(void);
 void PendSV_Handler(void);
 void SysTick_Handler(void);
 void RCC_IRQHandler(void);
-void LTDC_IRQHandler(void);
-void LTDC_ER_IRQHandler(void);
 /* USER CODE BEGIN EFP */
 
 /* USER CODE END EFP */
@@ -68,5 +66,3 @@ void LTDC_ER_IRQHandler(void);
 #endif
 
 #endif /* __STM32F4xx_IT_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

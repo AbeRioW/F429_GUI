@@ -66,10 +66,6 @@ void Error_Handler(void);
 #define VFP 22
 #define WIDTH 800
 #define HEIGHT 480
-#define LED_Pin GPIO_PIN_10
-#define LED_GPIO_Port GPIOH
-#define LCD_BL_Pin GPIO_PIN_7
-#define LCD_BL_GPIO_Port GPIOD
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
@@ -79,5 +75,3 @@ void Error_Handler(void);
 #endif
 
 #endif /* __MAIN_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

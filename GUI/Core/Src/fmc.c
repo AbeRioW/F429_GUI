@@ -1,3 +1,4 @@
+/* USER CODE BEGIN Header */
 /**
   ******************************************************************************
   * File Name          : FMC.c
@@ -6,16 +7,16 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2022 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2022 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
+/* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
 #include "fmc.h"
@@ -25,7 +26,7 @@ static void SDRAM_InitSequence(void)
 {
 	uint32_t tmpr = 0;
 	FMC_SDRAM_CommandTypeDef FMC_SDRAMCommandStructure;
-	//1.开启SDRAM时钟
+	//1.�?启SDRAM时钟
 	FMC_SDRAMCommandStructure.CommandMode = FMC_SDRAM_CMD_CLK_ENABLE;
 	FMC_SDRAMCommandStructure.CommandTarget = FMC_SDRAM_CMD_TARGET_BANK2;
 	FMC_SDRAMCommandStructure.AutoRefreshNumber = 1;
@@ -37,7 +38,7 @@ static void SDRAM_InitSequence(void)
 	//2.延时
 	HAL_Delay(20);
 	
-	//3.对所有的BANK预充电
+	//3.对所有的BANK预充�?
 	FMC_SDRAMCommandStructure.CommandMode = FMC_SDRAM_CMD_PALL;
 	FMC_SDRAMCommandStructure.CommandTarget = FMC_SDRAM_CMD_TARGET_BANK2;
 	FMC_SDRAMCommandStructure.AutoRefreshNumber = 1;
@@ -55,7 +56,7 @@ static void SDRAM_InitSequence(void)
 	if(HAL_SDRAM_SendCommand(&hsdram2,&FMC_SDRAMCommandStructure,0xffff)!=HAL_OK)
 		return;
 	
-	//5.设置SDRAM寄存器配置
+	//5.设置SDRAM寄存器配�?
 	tmpr = (uint32_t)SDRAM_MODEREG_BURST_LENGTH_8 |
  	SDRAM_MODEREG_BURST_TYPE_SEQUENTIAL |
  	SDRAM_MODEREG_CAS_LATENCY_2 |
@@ -69,7 +70,7 @@ static void SDRAM_InitSequence(void)
 	if(HAL_SDRAM_SendCommand(&hsdram2,&FMC_SDRAMCommandStructure,0xffff)!=HAL_OK)
 		return;
 	
-	//设置刷新计数器
+	//设置刷新计数�?
 	FMC_SDRAM_ProgramRefreshRate(FMC_SDRAM_DEVICE,1386);
 	while(HAL_SDRAM_GetState(&hsdram2)!=HAL_SDRAM_STATE_RESET);
 	
@@ -345,5 +346,3 @@ void HAL_SDRAM_MspDeInit(SDRAM_HandleTypeDef* sdramHandle){
 /**
   * @}
   */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
