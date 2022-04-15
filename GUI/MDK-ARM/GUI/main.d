@@ -34,3 +34,4 @@ gui\main.o: ../Core/Inc/gpio.h
 gui\main.o: D:\ProgramFiles\KEIL5\ARM\ARMCC\Bin\..\include\stdbool.h
 gui\main.o: ../Core/Inc/fmc.h
 gui\main.o: ../Core/Inc/test.h
+gui\main.o: D:\ProgramFiles\KEIL5\ARM\ARMCC\Bin\..\include\string.h

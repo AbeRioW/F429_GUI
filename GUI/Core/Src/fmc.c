@@ -22,6 +22,58 @@
 #include "fmc.h"
 
 /* USER CODE BEGIN 0 */
+#define SDRAM_TIMEOUT   (uint32_t)0xffff
+static void SDRAM_InitSequence(void)
+{
+	 FMC_SDRAM_CommandTypeDef FMC_SDRAMCommandStructure;
+	 uint32_t tmpr=0;
+	 //1.配置命令,开启提供给SDRAM时钟
+	 FMC_SDRAMCommandStructure.CommandMode =  FMC_SDRAM_CMD_CLK_ENABLE;
+	 FMC_SDRAMCommandStructure.CommandTarget = FMC_SDRAM_CMD_TARGET_BANK2;
+	 FMC_SDRAMCommandStructure.AutoRefreshNumber = 0;
+	 FMC_SDRAMCommandStructure.ModeRegisterDefinition =0;
+	 if(HAL_SDRAM_SendCommand(&hsdram2,&FMC_SDRAMCommandStructure,SDRAM_TIMEOUT)!=HAL_OK)
+		 return;
+	
+	 //2.简单延时
+	 HAL_Delay(10);
+	 
+	 //3.预充电
+	 FMC_SDRAMCommandStructure.CommandMode =  FMC_SDRAM_CMD_PALL;
+	 FMC_SDRAMCommandStructure.CommandTarget = FMC_SDRAM_CMD_TARGET_BANK2;
+	 FMC_SDRAMCommandStructure.AutoRefreshNumber = 0;
+	 FMC_SDRAMCommandStructure.ModeRegisterDefinition =0;
+	 if(HAL_SDRAM_SendCommand(&hsdram2,&FMC_SDRAMCommandStructure,SDRAM_TIMEOUT)!=HAL_OK)
+		 return;
+	
+	 //4.自刷新
+	 FMC_SDRAMCommandStructure.CommandMode =  FMC_SDRAM_CMD_AUTOREFRESH_MODE;
+	 FMC_SDRAMCommandStructure.CommandTarget = FMC_SDRAM_CMD_TARGET_BANK2;
+	 FMC_SDRAMCommandStructure.AutoRefreshNumber = 2;
+	 FMC_SDRAMCommandStructure.ModeRegisterDefinition =0;
+	 if(HAL_SDRAM_SendCommand(&hsdram2,&FMC_SDRAMCommandStructure,SDRAM_TIMEOUT)!=HAL_OK)
+		 return;
+	 
+	 //5.设置SDRAM寄存器
+	 tmpr = (uint32_t)SDRAM_MODEREG_BURST_LENGTH_4          |
+                    SDRAM_MODEREG_BURST_TYPE_SEQUENTIAL   |
+                    SDRAM_MODEREG_CAS_LATENCY_2           |
+                    SDRAM_MODEREG_OPERATING_MODE_STANDARD |
+                    SDRAM_MODEREG_WRITEBURST_MODE_SINGLE;
+	 
+	 FMC_SDRAMCommandStructure.CommandMode =  FMC_SDRAM_CMD_LOAD_MODE;
+	 FMC_SDRAMCommandStructure.CommandTarget = FMC_SDRAM_CMD_TARGET_BANK2;
+	 FMC_SDRAMCommandStructure.AutoRefreshNumber = 1;
+	 FMC_SDRAMCommandStructure.ModeRegisterDefinition =tmpr;
+	 if(HAL_SDRAM_SendCommand(&hsdram2,&FMC_SDRAMCommandStructure,SDRAM_TIMEOUT)!=HAL_OK)
+		 return;
+				
+	 //6.设置刷新计数器
+	 /*刷新速率=(COUNT +1)xSDRAM频率时钟
+		 COUNT = (SDRAM刷新周期/行数)-20*/
+	 /*64ms/4096=15.62us (15.62us x FSDCLK)-20=1386*/ 
+	 HAL_SDRAM_ProgramRefreshRate(&hsdram2,1386);
+}
 /* USER CODE END 0 */
 
 SDRAM_HandleTypeDef hsdram2;
@@ -68,7 +120,7 @@ void MX_FMC_Init(void)
   }
 
   /* USER CODE BEGIN FMC_Init 2 */
-
+  SDRAM_InitSequence();
   /* USER CODE END FMC_Init 2 */
 }
 
@@ -124,6 +176,8 @@ static void HAL_FMC_MspInit(void){
   PD0   ------> FMC_D2
   PD1   ------> FMC_D3
   PG15   ------> FMC_SDNCAS
+  PE0   ------> FMC_NBL0
+  PE1   ------> FMC_NBL1
   */
   /* GPIO_InitStruct */
   GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3
@@ -158,7 +212,7 @@ static void HAL_FMC_MspInit(void){
   /* GPIO_InitStruct */
   GPIO_InitStruct.Pin = GPIO_PIN_7|GPIO_PIN_8|GPIO_PIN_9|GPIO_PIN_10
                           |GPIO_PIN_11|GPIO_PIN_12|GPIO_PIN_13|GPIO_PIN_14
-                          |GPIO_PIN_15;
+                          |GPIO_PIN_15|GPIO_PIN_0|GPIO_PIN_1;
   GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
@@ -250,6 +304,8 @@ static void HAL_FMC_MspDeInit(void){
   PD0   ------> FMC_D2
   PD1   ------> FMC_D3
   PG15   ------> FMC_SDNCAS
+  PE0   ------> FMC_NBL0
+  PE1   ------> FMC_NBL1
   */
 
   HAL_GPIO_DeInit(GPIOF, GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3
@@ -263,7 +319,7 @@ static void HAL_FMC_MspDeInit(void){
 
   HAL_GPIO_DeInit(GPIOE, GPIO_PIN_7|GPIO_PIN_8|GPIO_PIN_9|GPIO_PIN_10
                           |GPIO_PIN_11|GPIO_PIN_12|GPIO_PIN_13|GPIO_PIN_14
-                          |GPIO_PIN_15);
+                          |GPIO_PIN_15|GPIO_PIN_0|GPIO_PIN_1);
 
   HAL_GPIO_DeInit(GPIOH, GPIO_PIN_6|GPIO_PIN_7);
 

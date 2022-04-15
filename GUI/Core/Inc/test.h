@@ -1,7 +1,7 @@
 #ifndef __TEST_H
 #define __TEST_H
 
-#if 0
+#if 1
 #include "stdbool.h"
 #include "stdint.h"
 #include "string.h"

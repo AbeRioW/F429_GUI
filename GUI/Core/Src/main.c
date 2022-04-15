@@ -91,6 +91,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
 	#if DEBUG
 	//gpio_test();	
+	SDRAM_test();
 	#endif
   
   /* USER CODE END 2 */
