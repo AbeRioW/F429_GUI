@@ -66,6 +66,10 @@ void Error_Handler(void);
 #define VFP 22
 #define WIDTH 800
 #define HEIGHT 480
+#define LTDC_DISP_Pin GPIO_PIN_4
+#define LTDC_DISP_GPIO_Port GPIOD
+#define LTDC_BL_Pin GPIO_PIN_7
+#define LTDC_BL_GPIO_Port GPIOD
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

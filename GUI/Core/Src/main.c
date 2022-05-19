@@ -19,6 +19,8 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "dma2d.h"
+#include "ltdc.h"
 #include "gpio.h"
 #include "fmc.h"
 
@@ -88,10 +90,12 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_FMC_Init();
+  MX_DMA2D_Init();
+  MX_LTDC_Init();
   /* USER CODE BEGIN 2 */
 	#if DEBUG
 	//gpio_test();	
-	SDRAM_test();
+	//SDRAM_test();
 	#endif
   
   /* USER CODE END 2 */

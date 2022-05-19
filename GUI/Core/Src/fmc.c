@@ -27,7 +27,7 @@ static void SDRAM_InitSequence(void)
 {
 	 FMC_SDRAM_CommandTypeDef FMC_SDRAMCommandStructure;
 	 uint32_t tmpr=0;
-	 //1.配置命令,开启提供给SDRAM时钟
+	 //1.配置命令,�?启提供给SDRAM时钟
 	 FMC_SDRAMCommandStructure.CommandMode =  FMC_SDRAM_CMD_CLK_ENABLE;
 	 FMC_SDRAMCommandStructure.CommandTarget = FMC_SDRAM_CMD_TARGET_BANK2;
 	 FMC_SDRAMCommandStructure.AutoRefreshNumber = 0;
@@ -35,10 +35,10 @@ static void SDRAM_InitSequence(void)
 	 if(HAL_SDRAM_SendCommand(&hsdram2,&FMC_SDRAMCommandStructure,SDRAM_TIMEOUT)!=HAL_OK)
 		 return;
 	
-	 //2.简单延时
+	 //2.�?单延�?
 	 HAL_Delay(10);
 	 
-	 //3.预充电
+	 //3.预充�?
 	 FMC_SDRAMCommandStructure.CommandMode =  FMC_SDRAM_CMD_PALL;
 	 FMC_SDRAMCommandStructure.CommandTarget = FMC_SDRAM_CMD_TARGET_BANK2;
 	 FMC_SDRAMCommandStructure.AutoRefreshNumber = 0;
@@ -46,7 +46,7 @@ static void SDRAM_InitSequence(void)
 	 if(HAL_SDRAM_SendCommand(&hsdram2,&FMC_SDRAMCommandStructure,SDRAM_TIMEOUT)!=HAL_OK)
 		 return;
 	
-	 //4.自刷新
+	 //4.自刷�?
 	 FMC_SDRAMCommandStructure.CommandMode =  FMC_SDRAM_CMD_AUTOREFRESH_MODE;
 	 FMC_SDRAMCommandStructure.CommandTarget = FMC_SDRAM_CMD_TARGET_BANK2;
 	 FMC_SDRAMCommandStructure.AutoRefreshNumber = 2;
@@ -54,7 +54,7 @@ static void SDRAM_InitSequence(void)
 	 if(HAL_SDRAM_SendCommand(&hsdram2,&FMC_SDRAMCommandStructure,SDRAM_TIMEOUT)!=HAL_OK)
 		 return;
 	 
-	 //5.设置SDRAM寄存器
+	 //5.设置SDRAM寄存�?
 	 tmpr = (uint32_t)SDRAM_MODEREG_BURST_LENGTH_4          |
                     SDRAM_MODEREG_BURST_TYPE_SEQUENTIAL   |
                     SDRAM_MODEREG_CAS_LATENCY_2           |
@@ -68,7 +68,7 @@ static void SDRAM_InitSequence(void)
 	 if(HAL_SDRAM_SendCommand(&hsdram2,&FMC_SDRAMCommandStructure,SDRAM_TIMEOUT)!=HAL_OK)
 		 return;
 				
-	 //6.设置刷新计数器
+	 //6.设置刷新计数�?
 	 /*刷新速率=(COUNT +1)xSDRAM频率时钟
 		 COUNT = (SDRAM刷新周期/行数)-20*/
 	 /*64ms/4096=15.62us (15.62us x FSDCLK)-20=1386*/ 
