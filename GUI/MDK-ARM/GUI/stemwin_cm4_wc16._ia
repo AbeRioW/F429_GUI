@@ -1,0 +1,6 @@
+--cpu Cortex-M4.fp.sp -g --apcs=interwork --pd "__MICROLIB SETA 1"
+-I.\RTE\_GUI
+-IC:\Users\Administrator\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include
+-IC:\Users\Administrator\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
+--pd "__UVISION_VERSION SETA 536" --pd "_RTE_ SETA 1" --pd "STM32F429xx SETA 1" --pd "_RTE_ SETA 1"
+--list stemwin_cm4_wc16.lst --xref -o gui\stemwin_cm4_wc16.o --depend gui\stemwin_cm4_wc16.d "..\MYSTemWin\Lib\STemWin_CM4_wc16.a"

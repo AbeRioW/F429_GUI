@@ -19,6 +19,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "crc.h"
 #include "dma2d.h"
 #include "ltdc.h"
 #include "gpio.h"
@@ -27,6 +28,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "test.h"
+#include "GUI.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -68,7 +70,8 @@ void SystemClock_Config(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
+  int k=1;
+	static int p;
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -88,10 +91,21 @@ int main(void)
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
+	MX_CRC_Init();
   MX_GPIO_Init();
   MX_FMC_Init();
   MX_DMA2D_Init();
   MX_LTDC_Init();
+
+	//GUI_Init();  //STEMWIN初始化
+	//if(GUI_IsInitialized())
+	//{
+	//  	GUI_SetBkColor(GUI_RED);
+	//    GUI_SetColor(GUI_RED);
+	//}
+	
+
+	
   /* USER CODE BEGIN 2 */
 	#if DEBUG
 	//gpio_test();	

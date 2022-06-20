@@ -41,7 +41,8 @@ extern LTDC_HandleTypeDef hltdc;
 void MX_LTDC_Init(void);
 
 /* USER CODE BEGIN Prototypes */
-
+uint32_t LCD_ReadPoint(uint16_t x,uint16_t y);
+void LCD_WritePoint(uint16_t x,uint16_t y,uint32_t color);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus

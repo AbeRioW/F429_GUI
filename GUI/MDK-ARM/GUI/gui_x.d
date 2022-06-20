@@ -1,0 +1,9 @@
+gui\gui_x.o: ..\MYSTemWin\OS\GUI_X.c
+gui\gui_x.o: ..\MYSTemWin\inc\GUI.h
+gui\gui_x.o: D:\ProgramFiles\KEIL5\ARM\ARMCC\Bin\..\include\stddef.h
+gui\gui_x.o: ..\MYSTemWin\inc\GUI_ConfDefaults.h
+gui\gui_x.o: ..\MYSTemWin\Config\GUIConf.h
+gui\gui_x.o: ..\MYSTemWin\inc\GUI_Type.h
+gui\gui_x.o: ..\MYSTemWin\inc\LCD.h
+gui\gui_x.o: ..\MYSTemWin\inc\Global.h
+gui\gui_x.o: ..\MYSTemWin\inc\GUI_Version.h

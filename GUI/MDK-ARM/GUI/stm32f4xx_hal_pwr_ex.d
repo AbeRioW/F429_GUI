@@ -22,6 +22,7 @@ gui\stm32f4xx_hal_pwr_ex.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_ex
 gui\stm32f4xx_hal_pwr_ex.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h
 gui\stm32f4xx_hal_pwr_ex.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h
 gui\stm32f4xx_hal_pwr_ex.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h
+gui\stm32f4xx_hal_pwr_ex.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_crc.h
 gui\stm32f4xx_hal_pwr_ex.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma2d.h
 gui\stm32f4xx_hal_pwr_ex.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h
 gui\stm32f4xx_hal_pwr_ex.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h

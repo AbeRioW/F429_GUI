@@ -23,6 +23,7 @@ gui\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_exti.h
 gui\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h
 gui\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h
 gui\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h
+gui\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_crc.h
 gui\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma2d.h
 gui\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h
 gui\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h
@@ -33,6 +34,7 @@ gui\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_ltdc.h
 gui\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_ltdc_ex.h
 gui\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h
 gui\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h
+gui\main.o: ../Core/Inc/crc.h
 gui\main.o: ../Core/Inc/dma2d.h
 gui\main.o: ../Core/Inc/ltdc.h
 gui\main.o: ../Core/Inc/gpio.h
@@ -40,3 +42,10 @@ gui\main.o: D:\ProgramFiles\KEIL5\ARM\ARMCC\Bin\..\include\stdbool.h
 gui\main.o: ../Core/Inc/fmc.h
 gui\main.o: ../Core/Inc/test.h
 gui\main.o: D:\ProgramFiles\KEIL5\ARM\ARMCC\Bin\..\include\string.h
+gui\main.o: ..\MYSTemWin\inc\GUI.h
+gui\main.o: ..\MYSTemWin\inc\GUI_ConfDefaults.h
+gui\main.o: ..\MYSTemWin\Config\GUIConf.h
+gui\main.o: ..\MYSTemWin\inc\GUI_Type.h
+gui\main.o: ..\MYSTemWin\inc\LCD.h
+gui\main.o: ..\MYSTemWin\inc\Global.h
+gui\main.o: ..\MYSTemWin\inc\GUI_Version.h

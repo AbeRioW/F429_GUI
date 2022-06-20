@@ -21,7 +21,7 @@
 #include "ltdc.h"
 
 /* USER CODE BEGIN 0 */
-#if 1
+#if 0
 static  const unsigned short _acsrchttp_i0[] = {
   0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 
         0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 
@@ -4631,6 +4631,12 @@ static  const unsigned short _acsrchttp_i0[] = {
         0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF
 };
 #endif
+#define LTDC_WIDTH 800
+#define LTDC_HEIGHT 480
+#define LAYER0_ADDR (0xD000000)
+#define LAYER1_ADDR (LAYER0_ADDR+800*480*2)
+uint16_t ltdc_layer0[LTDC_HEIGHT][LTDC_WIDTH] __attribute__((at(LAYER0_ADDR)));
+uint16_t ltdc_layer1[LTDC_HEIGHT][LTDC_WIDTH] __attribute__((at(LAYER1_ADDR)));
 /* USER CODE END 0 */
 
 LTDC_HandleTypeDef hltdc;
@@ -4665,43 +4671,45 @@ void MX_LTDC_Init(void)
   hltdc.Init.TotalHeigh = 525;
   hltdc.Init.Backcolor.Blue = 0;
   hltdc.Init.Backcolor.Green = 0;
-  hltdc.Init.Backcolor.Red = 0;
+  hltdc.Init.Backcolor.Red = 0xff;
   if (HAL_LTDC_Init(&hltdc) != HAL_OK)
   {
     Error_Handler();
   }
   pLayerCfg.WindowX0 = 0;
-  pLayerCfg.WindowX1 = 240;
+  //pLayerCfg.WindowX1 = 799;
+	pLayerCfg.WindowX1 = 100;
   pLayerCfg.WindowY0 = 0;
-  pLayerCfg.WindowY1 = 240;
+ // pLayerCfg.WindowY1 = 479;
+	pLayerCfg.WindowY1 = 100;
   pLayerCfg.PixelFormat = LTDC_PIXEL_FORMAT_RGB565;
   pLayerCfg.Alpha = 255;
   pLayerCfg.Alpha0 = 0;
   pLayerCfg.BlendingFactor1 = LTDC_BLENDING_FACTOR1_PAxCA;
   pLayerCfg.BlendingFactor2 = LTDC_BLENDING_FACTOR2_PAxCA;
-  pLayerCfg.FBStartAdress = (uint32_t)_acsrchttp_i0;
-  pLayerCfg.ImageWidth = WIDTH;
-  pLayerCfg.ImageHeight = HEIGHT;
+  pLayerCfg.FBStartAdress = 0xD0300000;
+  pLayerCfg.ImageWidth = 100;
+  pLayerCfg.ImageHeight = 100;
   pLayerCfg.Backcolor.Blue = 0;
-  pLayerCfg.Backcolor.Green = 0;
+  pLayerCfg.Backcolor.Green = 0xff;
   pLayerCfg.Backcolor.Red = 0;
   if (HAL_LTDC_ConfigLayer(&hltdc, &pLayerCfg, 0) != HAL_OK)
   {
     Error_Handler();
   }
-  pLayerCfg1.WindowX0 = 300;
-  pLayerCfg1.WindowX1 = 540;
-  pLayerCfg1.WindowY0 = 300;
-  pLayerCfg1.WindowY1 = 540;
+  pLayerCfg1.WindowX0 = 200;
+  pLayerCfg1.WindowX1 = 299;
+  pLayerCfg1.WindowY0 = 200;
+  pLayerCfg1.WindowY1 = 299;
   pLayerCfg1.PixelFormat = LTDC_PIXEL_FORMAT_ARGB8888;
   pLayerCfg1.Alpha = 255;
   pLayerCfg1.Alpha0 = 0;
   pLayerCfg1.BlendingFactor1 = LTDC_BLENDING_FACTOR1_PAxCA;
   pLayerCfg1.BlendingFactor2 = LTDC_BLENDING_FACTOR2_PAxCA;
-  pLayerCfg1.FBStartAdress = (uint32_t)_acsrchttp_i0;
+  pLayerCfg1.FBStartAdress = (0xD0300000+800*480*2);
   pLayerCfg1.ImageWidth = WIDTH;
   pLayerCfg1.ImageHeight = HEIGHT;
-  pLayerCfg1.Backcolor.Blue = 0;
+  pLayerCfg1.Backcolor.Blue = 0x00;
   pLayerCfg1.Backcolor.Green = 0;
   pLayerCfg1.Backcolor.Red = 0;
   if (HAL_LTDC_ConfigLayer(&hltdc, &pLayerCfg1, 1) != HAL_OK)
@@ -4936,5 +4944,13 @@ void HAL_LTDC_MspDeInit(LTDC_HandleTypeDef* ltdcHandle)
 }
 
 /* USER CODE BEGIN 1 */
+uint32_t LCD_ReadPoint(uint16_t x,uint16_t y)
+{
+	  return *(uint16_t*)((uint32_t)ltdc_layer0[0]+2*(LTDC_WIDTH*y+x));
+}
 
+void LCD_WritePoint(uint16_t x,uint16_t y,uint32_t color)
+{
+	 *(uint16_t*)((uint32_t)ltdc_layer0[0]+2*(LTDC_WIDTH*y+x))=color;
+}
 /* USER CODE END 1 */
