@@ -22,7 +22,7 @@ Dialog DLL:      TCM.DLL V1.53.0.0
  
 <h2>Project:</h2>
 C:\Users\Administrator\Desktop\F429_GUI\GUI\MDK-ARM\GUI.uvprojx
-Project File Date:  06/08/2022
+Project File Date:  10/21/2022
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\ProgramFiles\KEIL5\ARM\ARMCC\Bin'
@@ -30,11 +30,11 @@ Project File Date:  06/08/2022
 Rebuild target 'GUI'
 assembling startup_stm32f429xx.s...
 compiling test.c...
-..\Core\Src\test.c(49): warning:  #940-D: missing return statement at end of non-void function "SDRAM_test" 
+..\Core\Src\test.c(44): warning:  #940-D: missing return statement at end of non-void function "SDRAM_test" 
   }
-..\Core\Src\test.c(20): warning:  #177-D: variable "uhWritedata_16b"  was declared but never referenced
+..\Core\Src\test.c(21): warning:  #177-D: variable "uhWritedata_16b"  was declared but never referenced
     uint16_t uhWritedata_16b = 0, uhReaddata_16b = 0; 
-..\Core\Src\test.c(20): warning:  #177-D: variable "uhReaddata_16b"  was declared but never referenced
+..\Core\Src\test.c(21): warning:  #177-D: variable "uhReaddata_16b"  was declared but never referenced
     uint16_t uhWritedata_16b = 0, uhReaddata_16b = 0; 
 ..\Core\Src\test.c: 3 warnings, 0 errors
 compiling main.c...
@@ -48,6 +48,9 @@ compiling crc.c...
 compiling dma2d.c...
 compiling fmc.c...
 compiling ltdc.c...
+../Core/Src/ltdc.c(25): warning:  #177-D: variable "_acsrchttp_i0"  was declared but never referenced
+  static  const unsigned short _acsrchttp_i0[] = {
+../Core/Src/ltdc.c: 1 warning, 0 errors
 compiling stm32f4xx_it.c...
 compiling stm32f4xx_hal_msp.c...
 compiling stm32f4xx_hal_crc.c...
@@ -92,9 +95,9 @@ compiling LCDConf_Lin_Template.c...
 ..\MYSTemWin\Config\LCDConf_Lin_Template.c: 4 warnings, 0 errors
 compiling GUI_X.c...
 linking...
-Program Size: Code=7182 RO-data=494 RW-data=32 ZI-data=3830044  
+Program Size: Code=7198 RO-data=494 RW-data=32 ZI-data=3830044  
 FromELF: creating hex file...
-"GUI\GUI.axf" - 0 Error(s), 11 Warning(s).
+"GUI\GUI.axf" - 0 Error(s), 12 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -118,7 +121,7 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:CORE:5.5.0
       Include file:  CMSIS\Core\Include\tz_context.h
-Build Time Elapsed:  00:01:18
+Build Time Elapsed:  00:01:04
 </pre>
 </body>
 </html>

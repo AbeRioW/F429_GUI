@@ -94,6 +94,7 @@ int main(void)
 	MX_CRC_Init();
   MX_GPIO_Init();
   MX_FMC_Init();
+
   MX_DMA2D_Init();
   MX_LTDC_Init();
 
@@ -107,9 +108,10 @@ int main(void)
 
 	
   /* USER CODE BEGIN 2 */
+
 	#if DEBUG
 	//gpio_test();	
-	//SDRAM_test();
+	 //SDRAM_test();
 	#endif
   
   /* USER CODE END 2 */

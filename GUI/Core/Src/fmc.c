@@ -74,6 +74,15 @@ static void SDRAM_InitSequence(void)
 	 /*64ms/4096=15.62us (15.62us x FSDCLK)-20=1386*/ 
 	 HAL_SDRAM_ProgramRefreshRate(&hsdram2,1386);
 }
+
+void SDRAM_Reset(void)
+{
+	uint32_t counter=0;
+	for (counter = 0x00; counter < IS42S16400J_SIZE; counter++)
+  {
+    *(__IO uint8_t*) (SDRAM_BANK_ADDR + counter) = (uint8_t)0x77;
+  }
+}
 /* USER CODE END 0 */
 
 SDRAM_HandleTypeDef hsdram2;
@@ -121,6 +130,7 @@ void MX_FMC_Init(void)
 
   /* USER CODE BEGIN FMC_Init 2 */
   SDRAM_InitSequence();
+	SDRAM_Reset();
   /* USER CODE END FMC_Init 2 */
 }
 
